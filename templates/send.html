@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+	<head>
+		    <!--required meta tags-->
+			<meta charset="utf-8">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		  <meta name="viewport" content="width=device-width, initial-scale=1">
+		  
+		  <!-- Bootstrap CSS -->
+		  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	  
+		  <title>Email Client</title>
+	</head>
+	<body>
+		<div class="container">
+			<nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(47, 82, 238);">
+				<!-- Navbar content -->
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				  <span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+				  <ul class="navbar-nav">
+					<li class="nav-item active">
+					  <a class="nav-link" href="{{ url_for('email') }}">Inbox<span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+					  <a class="nav-link" href="{{ url_for('sendEmail') }}">New Email</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('sentEmails') }}">Sent Emails</a>
+                      </li>
+					<li class="nav-item">
+					  <a class="nav-link" href="{{ url_for('archive') }}">Archive</a>
+					</li>
+				  </ul>
+				</div>
+			</nav><!-- Navbar end -->
+		</div><!-- nav container-->
+		<div class="form-group d-flex flex-column justify-content-center">
+			<h2 >New Email</h2>
+			<p>
+				{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					<ul class=flashes>
+					{% for message in messages %}
+					<li>{{ message }}</li>
+					{% endfor %}
+					</ul>
+				{% endif %}
+				{% endwith %}
+			</p>
+			<form  method="post" action="/email/sendEmail" enctype="multipart/form-data">
+				<dl>
+					<p>
+						To:
+                        <input type="text" name="To"><br>
+                        From:
+                        <input type="text" name="From"><br>
+                        Subject:
+                        <input type="text" name="Subject"><br>
+                        Message:
+                        <input type="text" name="Message" size='35'>
+					</p>
+				</dl>
+				<p>
+					<input type="submit" value="Submit">
+				</p>
+			</form>
+		</div><!-- upload-form -->
+
+		 <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	</body>
+</html>
